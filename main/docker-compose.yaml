@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes: 
+      - .:/app  
+    ports:
+      - 8001:8000
+    depends_on:
+      - main_db
+
+  main_db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: main
+      MYSQL_USER: root1
+      MYSQL_PASSWORD: some_password
+      MYSQL_ROOT_PASSWORD: some_password
+    volumes:
+      - ./storage/dbdata:/var/lib/mysql
+    ports:
+      - 33064:3306
